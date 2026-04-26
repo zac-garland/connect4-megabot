@@ -1,5 +1,23 @@
+.DS_Store
+**/.DS_Store
+__pycache__/
+**/__pycache__/
+*.pyc
+
+.venv/
+venv/
+
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 connect4-megabot.Rproj
+
+# Policy-gradient and other trained exports (baselines stay in megabot/models/)
+megabot/output_models/
+
+# Colab/nb exports
+megabot/notebooks/00_all_megabot_notebooks_combined.html
+
+# Scratch experiments (do not commit)
+sub-bots/improve-weak-link/

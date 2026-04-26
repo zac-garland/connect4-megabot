@@ -14,7 +14,10 @@ import numpy as np
 import pandas as pd
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+# `src/connect4_model_hub.py` -> megabot/ (models, data) -> repo root (sub-bots/)
+_SRC_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = _SRC_DIR.parent
+REPO_ROOT = PROJECT_ROOT.parent
 MODELS_DIR = PROJECT_ROOT / "models"
 DATA_DIR = PROJECT_ROOT / "data"
 MANIFEST_PATH = MODELS_DIR / "manifest.csv"
@@ -284,7 +287,10 @@ def _download_or_copy(spec: ModelSpec, destination: Path, prefer_download: bool 
             pass
 
     if spec.local_fallback:
-        fallback_path = PROJECT_ROOT / spec.local_fallback
+        rel = spec.local_fallback
+        if rel.startswith("connect4-megabot/"):
+            rel = rel[len("connect4-megabot/"):]
+        fallback_path = REPO_ROOT / rel
         if fallback_path.exists():
             shutil.copy2(fallback_path, destination)
             return "copied_local_fallback"
